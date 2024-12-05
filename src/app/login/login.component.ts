@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,11 @@ export class LoginComponent {
     password: '',
   });
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
   onLogin() {
     this.http
@@ -34,6 +39,7 @@ export class LoginComponent {
         next: (response) => {
           if ('token' in response && typeof response.token == 'string') {
             localStorage.setItem('token', response.token);
+            this.router.navigateByUrl('/user');
           }
         },
       });
