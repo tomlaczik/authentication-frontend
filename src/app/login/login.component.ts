@@ -42,6 +42,7 @@ export class LoginComponent {
             this.router.navigateByUrl('/user');
           }
         },
+        error: ({ error: { message } }) => alert(message),
       });
   }
 }

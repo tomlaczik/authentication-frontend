@@ -36,6 +36,7 @@ export class RegistrationComponent {
       .post('http://localhost:8000/api/users', this.registrationForm.value)
       .subscribe({
         next: () => this.router.navigateByUrl('/login'),
+        error: ({ error: { message } }) => alert(message),
       });
   }
 }
