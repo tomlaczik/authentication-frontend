@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -24,13 +25,17 @@ export class RegistrationComponent {
     password: '',
   });
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
+  constructor(
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
   onRegister() {
     this.http
       .post('http://localhost:8000/api/users', this.registrationForm.value)
       .subscribe({
-        next: (response) => console.log(response),
+        next: () => this.router.navigateByUrl('/login'),
       });
   }
 }
